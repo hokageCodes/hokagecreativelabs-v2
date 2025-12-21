@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const Hero = () => {
   return (
-    <section className="relative min-h-[90vh] bg-[#21083F] text-white overflow-hidden flex items-center justify-center">
+    <section className="relative min-h-[90vh] bg-[#0A0118] text-white overflow-hidden flex items-center justify-center">
       {/* Faint SVG Pattern Background */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <svg width="100%" height="100%" className="w-full h-full" style={{ opacity: 0.07 }}>

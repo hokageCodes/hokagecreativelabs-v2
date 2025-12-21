@@ -1,6 +1,6 @@
 const Philosophy = () => {
   return (
-    <section className="bg-cocoyam text-white px-6 py-32">
+    <section className="bg-[#0A0118] text-white px-6 py-32">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="mb-24 flex flex-col items-center text-center">

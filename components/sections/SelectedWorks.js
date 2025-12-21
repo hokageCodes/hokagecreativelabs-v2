@@ -69,7 +69,7 @@ const SelectedWorks = () => {
   ];
 
   return (
-    <section className="bg-cocoyam text-white py-24 px-6 font-sans">
+    <section className="bg-[#0A0118] text-white py-24 px-6 font-sans">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-16">

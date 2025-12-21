@@ -35,7 +35,7 @@ const OurProcess = () => {
       label: "DEPLOYMENT",
       icon: Rocket,
       title: "Launch & Scale",
-      description: "Rigorous QA testing followed by a seamless go-live strategy. We don't just hand over the keys; we ensure analytics are tracked, servers are optimized, and your team is trained to manage the platform.",
+      description: "Rigorous QA testing followed  by a seamless go-live strategy. We don't just hand over the keys; we ensure analytics are tracked, servers are optimized, and your team is trained to manage the platform.",
       tags: ["QA Testing", "Cloud Deploy", "Analytics"]
     }
   ];
@@ -212,7 +212,7 @@ const OurProcess = () => {
 
         {/* CTA Section */}
         <div className="mt-24 relative">
-          <div className="relative bg-gradient-to-br from-[#7FF41A]/10 to-transparent border border-[#7FF41A]/20 rounded-3xl p-12 overflow-hidden">
+          <div className="relative bg-cocoyam border border-[#7FF41A]/20 rounded-3xl p-12 overflow-hidden">
             {/* Background Pattern */}
             <div className="absolute inset-0 opacity-5"
               style={{
