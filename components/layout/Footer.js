@@ -1,5 +1,7 @@
 "use client";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
 
 const Footer = () => {
   return (
@@ -25,8 +27,6 @@ const Footer = () => {
           <ul className="flex flex-wrap justify-center gap-6 text-sm">
             <li><Link href="/projects" className="hover:text-[#7FF41A]">Work</Link></li>
             <li><Link href="/about" className="hover:text-[#7FF41A]">About</Link></li>
-            <li><Link href="/services" className="hover:text-[#7FF41A]">Services</Link></li>
-            <li><Link href="/insights" className="hover:text-[#7FF41A]">Insights</Link></li>
             <li><Link href="/contact" className="hover:text-[#7FF41A]">Contact</Link></li>
           </ul>
         </div>
@@ -37,15 +37,21 @@ const Footer = () => {
             CONNECT
           </h4>
           <div className="flex items-center gap-4 mb-4">
-            <button className="w-9 h-9 rounded bg-white/10 hover:bg-[#7FF41A] hover:text-[#21083F] transition" />
-            <button className="w-9 h-9 rounded bg-white/10 hover:bg-[#7FF41A] hover:text-[#21083F] transition" />
-            <button className="w-9 h-9 rounded bg-white/10 hover:bg-[#7FF41A] hover:text-[#21083F] transition" />
+            <Button variant="ghost" size="icon" className="w-9 h-9 bg-white/10 hover:bg-[#7FF41A] hover:text-[#21083F] transition">
+              <FaTwitter className="w-5 h-5" />
+            </Button>
+            <Button variant="ghost" size="icon" className="w-9 h-9 bg-white/10 hover:bg-[#7FF41A] hover:text-[#21083F] transition">
+              <FaInstagram className="w-5 h-5" />
+            </Button>
+            <Button variant="ghost" size="icon" className="w-9 h-9 bg-white/10 hover:bg-[#7FF41A] hover:text-[#21083F] transition">
+              <FaLinkedin className="w-5 h-5" />
+            </Button>
           </div>
           <a
             href="mailto:hello@hokage.lab"
             className="text-sm text-white/80 hover:text-[#7FF41A]"
           >
-            hello@hokage.lab
+            info@hokagecreativelabs.com
           </a>
         </div>
       </div>
@@ -62,12 +68,14 @@ const Footer = () => {
           <Link href="/terms" className="hover:text-white">Terms of Service</Link>
         </div>
 
-        <button
+        <Button
+          variant="ghost"
+          size="sm"
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           className="hover:text-[#7FF41A]"
         >
           Back to Top ↑
-        </button>
+        </Button>
       </div>
     </footer>
   );
