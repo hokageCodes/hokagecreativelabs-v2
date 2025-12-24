@@ -9,6 +9,8 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [expertiseOpen, setExpertiseOpen] = useState(false);
   const [aboutOpen, setAboutOpen] = useState(false);
+  const [mobileExpertiseOpen, setMobileExpertiseOpen] = useState(false);
+  const [mobileAboutOpen, setMobileAboutOpen] = useState(false);
 
   return (
     <nav className="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-2 md:px-6 py-3 bg-[#0A0118] text-white shadow-lg">
@@ -69,19 +71,19 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Right: CTA (DESKTOP ONLY) */}
-      <div className="hidden md:block">
+      {/* Right: CTA (DESKTOP & TABLET) */}
+      <div className="hidden lg:block">
         <Button size="lg" className="bg-[#7FF41A] text-[#21083F] hover:opacity-90 font-semibold">
           Book a Consultation
         </Button>
       </div>
 
-      {/* Mobile Hamburger */}
+      {/* Mobile/Tablet Hamburger */}
       <Button
         variant="ghost"
         size="icon"
         onClick={() => setOpen(!open)}
-        className="md:hidden flex flex-col gap-1.5 p-2"
+        className="lg:hidden flex flex-col gap-1.5 p-2"
         aria-label="Toggle Menu"
       >
         <span className="w-6 h-0.5 bg-white"></span>
@@ -89,30 +91,50 @@ const Navbar = () => {
         <span className="w-6 h-0.5 bg-white"></span>
       </Button>
 
-      {/* Mobile Menu */}
+      {/* Mobile/Tablet Menu */}
       {open && (
-        <div className="absolute top-full left-0 w-full h-screen bg-[#21083F] flex flex-col px-6 pt-12 space-y-8 md:hidden z-50">
-          <Link href="/" onClick={() => setOpen(false)} className="text-2xl">
+        <div className="absolute top-full left-0 w-full min-h-screen bg-[#21083F] flex flex-col px-6 pt-12 space-y-4 lg:hidden z-50 transition-all duration-300">
+          <Link href="/" onClick={() => setOpen(false)} className="text-2xl py-2">
             Home
           </Link>
-          {/* Removed Services link from mobile */}
-          <Link href="/projects" onClick={() => setOpen(false)} className="text-2xl">
+          <Link href="/projects" onClick={() => setOpen(false)} className="text-2xl py-2">
             Projects
           </Link>
-          <Link href="/about" onClick={() => setOpen(false)} className="text-2xl">
-            About
-          </Link>
-          <Link href="/academy" onClick={() => setOpen(false)} className="text-2xl">
-            Academy
-          </Link>
-          <Link href="/expertise" onClick={() => setOpen(false)} className="text-2xl min-w-[110px] text-center">
-            Expertise
-          </Link>
-          {/* Philosophy and Process removed from mobile nav, now only in landing page sections */}
-          <Link href="/contact" onClick={() => setOpen(false)} className="text-2xl">
-            Contact
-          </Link>
-
+          {/* Expertise Dropdown Mobile */}
+          <div className="relative">
+            <button
+              className="w-full text-2xl py-2 flex items-center justify-between focus:outline-none"
+              onClick={() => setMobileExpertiseOpen((v) => !v)}
+              aria-expanded={mobileExpertiseOpen}
+              aria-haspopup="true"
+            >
+              Expertise <span className="text-base">{mobileExpertiseOpen ? '▲' : '▼'}</span>
+            </button>
+            {mobileExpertiseOpen && (
+              <div className="ml-4 flex flex-col gap-2 py-2">
+                <Link href="/#philosophy-heading" scroll={true} className="px-4 py-2 text-lg" onClick={() => { setMobileExpertiseOpen(false); setOpen(false); }}>Our Philosophy</Link>
+                <Link href="/#ourprocess-heading" scroll={true} className="px-4 py-2 text-lg" onClick={() => { setMobileExpertiseOpen(false); setOpen(false); }}>Our Process</Link>
+              </div>
+            )}
+          </div>
+          {/* About Dropdown Mobile */}
+          <div className="relative">
+            <button
+              className="w-full text-2xl py-2 flex items-center justify-between focus:outline-none"
+              onClick={() => setMobileAboutOpen((v) => !v)}
+              aria-expanded={mobileAboutOpen}
+              aria-haspopup="true"
+            >
+              About <span className="text-base">{mobileAboutOpen ? '▲' : '▼'}</span>
+            </button>
+            {mobileAboutOpen && (
+              <div className="ml-4 flex flex-col gap-2 py-2">
+                <Link href="/company" className="px-4 py-2 text-lg" onClick={() => { setMobileAboutOpen(false); setOpen(false); }}>Company</Link>
+                <a href="https://academy.hokagecreativelabs.com" target="_blank" rel="noopener noreferrer" className="px-4 py-2 text-lg" onClick={() => { setMobileAboutOpen(false); setOpen(false); }}>Academy</a>
+                <Link href="/contact" className="px-4 py-2 text-lg" onClick={() => { setMobileAboutOpen(false); setOpen(false); }}>Contact</Link>
+              </div>
+            )}
+          </div>
           <Button size="lg" className="mt-6 w-full bg-[#7FF41A] text-[#21083F] rounded text-lg font-semibold">
             Book a Consultation
           </Button>
