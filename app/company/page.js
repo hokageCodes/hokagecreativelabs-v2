@@ -1,4 +1,5 @@
 
+"use client";
 export const metadata = {
   title: "About Company | Hokage Creative Labs",
   description: "Learn about Hokage Creative Labs, our mission, vision, values, and the team behind our digital legacy-building.",
