@@ -38,12 +38,12 @@ const Hero = () => {
         </p>
         <nav aria-label="Hero CTA" className="flex flex-col sm:flex-row gap-4 sm:gap-8 justify-center">
           <Link href="/contact">
-            <Button size="lg" className="font-semibold" aria-label="Book a Consultation">
+            <Button size="lg" className="bg-white text-[#21083F] hover:bg-[#21083F] hover:text-white font-semibold" aria-label="Book a Consultation">
               Book a Consultation
             </Button>
           </Link>
           <Link href="/projects">
-            <Button variant="ghost" size="lg" className="flex items-center gap-2 text-base" aria-label="View Our Work">
+            <Button variant="ghost" size="lg" className="border border-white flex items-center gap-2 text-base" aria-label="View Our Work">
               View Our Work <span className="text-2xl" aria-hidden="true">→</span>
             </Button>
           </Link>

@@ -140,13 +140,6 @@ const AboutCompany = () => {
             </div>
             <p className="text-[#21083F]/60 text-center text-base mt-8">Our team brings together diverse backgrounds and expertise, united by a passion for excellence and innovation.</p>
           </div>
-          {/* Parallax Our Story Section */}
-          {/* Project CTA Section */}
-          <div className="mt-16">
-            {typeof window !== 'undefined' && (
-              require("@/components/sections/ProjectsCTA").default()
-            )}
-          </div>
         </div>
       </section>
       </div>

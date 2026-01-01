@@ -207,7 +207,7 @@ const OurProcess = () => {
         </div>
 
         {/* CTA Section */}
-        <div className="mt-24 relative">
+        {/* <div className="mt-24 relative">
           <div className="relative bg-white border border-[#A18AFF]/20 rounded-3xl p-12 overflow-hidden flex justify-center">
             <div className="relative z-10 max-w-3xl text-center mx-auto">
               <h2 className="text-4xl md:text-5xl font-bold mb-4 text-[#21083F]">
@@ -222,7 +222,7 @@ const OurProcess = () => {
               </Button>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );

@@ -73,7 +73,7 @@ const Navbar = () => {
 
       {/* Right: CTA (DESKTOP & TABLET) */}
       <div className="hidden lg:block">
-        <Button size="lg" className="bg-[#7FF41A] text-[#21083F] hover:opacity-90 font-semibold">
+        <Button size="lg" className="bg-white text-[#21083F] hover:bg-[#21083F] hover:text-white font-semibold">
           Book a Consultation
         </Button>
       </div>

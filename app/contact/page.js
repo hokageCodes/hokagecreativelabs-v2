@@ -11,7 +11,7 @@ const Contact = () => {
           <input type="text" name="name" placeholder="Your Name" className="w-full border border-[#21083F]/20 rounded px-4 py-3 text-lg" required />
           <input type="email" name="email" placeholder="Your Email" className="w-full border border-[#21083F]/20 rounded px-4 py-3 text-lg" required />
           <textarea name="message" placeholder="Your Message" className="w-full border border-[#21083F]/20 rounded px-4 py-3 text-lg min-h-[120px]" required />
-          <button type="submit" className="w-full bg-[#7FF41A] text-[#21083F] font-semibold py-3 rounded text-lg hover:opacity-90 transition">Send Message</button>
+          <button type="submit" className="w-full bg-[#21083F] text-white font-semibold py-3 rounded text-lg hover:opacity-90 transition">Send Message</button>
         </form>
       </div>
     </section>
