@@ -1,5 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import { openCalendly } from "@/lib/utils";
 const principles = [
   {
     number: "01",
@@ -48,11 +49,13 @@ const Philosophy = () => {
         {/* CTA */}
         <div className="mt-12 w-full flex flex-col items-center justify-center">
           <p className="text-lg mb-4 font-sans text-center">Ready to create magic?</p>
-          <a href="/contact" className="inline-block">
-            <Button size="lg" className="font-semibold mx-auto block">
-              Book a Consultation →
-            </Button>
-          </a>
+          <Button
+            size="lg"
+            className="font-semibold mx-auto block"
+            onClick={openCalendly}
+          >
+            Book a Consultation →
+          </Button>
         </div>
       </div>
     </section>

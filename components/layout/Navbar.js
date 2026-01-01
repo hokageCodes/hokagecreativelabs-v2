@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { openCalendly } from "@/lib/utils";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -73,7 +74,11 @@ const Navbar = () => {
 
       {/* Right: CTA (DESKTOP & TABLET) */}
       <div className="hidden lg:block">
-        <Button size="lg" className="bg-white text-[#21083F] hover:bg-[#21083F] hover:text-white font-semibold">
+        <Button
+          size="lg"
+          className="bg-white text-[#21083F] hover:bg-[#21083F] hover:text-white font-semibold"
+          onClick={() => openCalendly()}
+        >
           Book a Consultation
         </Button>
       </div>
@@ -135,7 +140,11 @@ const Navbar = () => {
               </div>
             )}
           </div>
-          <Button size="lg" className="mt-6 w-full bg-[#7FF41A] text-[#21083F] rounded text-lg font-semibold">
+          <Button
+            size="lg"
+            className="mt-6 w-full bg-[#7FF41A] text-[#21083F] rounded text-lg font-semibold"
+            onClick={() => { setOpen(false); openCalendly(); }}
+          >
             Book a Consultation
           </Button>
         </div>
