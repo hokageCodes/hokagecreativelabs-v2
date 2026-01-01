@@ -1,3 +1,4 @@
+"use client";
 import Philosophy from "@/components/sections/Philosophy";
 import OurProcess from "@/components/sections/OurProcess";
 import Hero from "../components/sections/Hero";
