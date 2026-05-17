@@ -1,64 +1,76 @@
+"use client";
+
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
-import { openCalendly } from "@/lib/utils";
+import { ArrowRight } from "lucide-react";
+import { cn, openCalendly } from "@/lib/utils";
+import { ctaOutline, ctaPrimary, radiusCta } from "@/lib/ui-classes";
+
+const heroCtaMobile = "h-14 min-h-14 px-7 text-base sm:h-12 sm:min-h-12 sm:px-6 sm:text-sm";
+const heroCtaIcon = "size-[1.125rem] transition-transform group-hover:translate-x-0.5 sm:size-4";
 
 const Hero = () => {
   return (
-    <header className="relative min-h-[90vh] bg-[#0A0118] text-white overflow-hidden flex items-center justify-center" aria-label="Hero">
-      {/* Decorative SVG Pattern Background (non-blocking for LCP) */}
-      <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
-        <svg width="100%" height="100%" className="w-full h-full" style={{ opacity: 0.07 }} focusable="false" aria-hidden="true">
-          <defs>
-            <pattern id="pattern-circles" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse">
-              <circle cx="30" cy="30" r="2" fill="#fff" />
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#pattern-circles)" />
-        </svg>
-      </div>
-
-      {/* Grid Background */}
-      <div
-        className="absolute inset-0 opacity-[0.08]"
-        style={{
-          backgroundImage:
-            "linear-gradient(to right, rgba(255,255,255,0.15) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.15) 1px, transparent 1px)",
-          backgroundSize: "40px 40px",
-        }}
-        aria-hidden="true"
-      />
-
-      {/* Main Hero Content */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 flex flex-col items-center text-center">
-        <h1 className="text-[clamp(3rem,6vw,5.5rem)] font-extrabold leading-[1.05] max-w-7xl mb-6" itemProp="headline">
-          Where Ideas Become <span className="text-[#7FF41A]">Impossible</span> Realities
-        </h1>
-        <p className="mb-10 max-w-xl text-xl text-white/80 leading-relaxed" itemProp="description">
-          That vision stuck in your head? We give it breath, pixels, and a pulse. Watch your idea transform into something people can actually touch, use, and fall in love with.
-        </p>
-        <nav aria-label="Hero CTA" className="flex flex-col sm:flex-row gap-4 sm:gap-8 justify-center">
-          <Button
-            size="lg"
-            className="bg-white text-[#21083F] hover:bg-[#21083F] hover:text-white font-semibold"
-            aria-label="Book a Consultation"
-            onClick={() => openCalendly()}
+    <header
+      className="relative -mt-24 flex h-[100svh] max-h-[100svh] flex-col overflow-hidden bg-white text-cocoyam sm:-mt-28 lg:-mt-[7.5rem]"
+      aria-label="Hero"
+    >
+      <div className="relative z-10 mx-auto flex w-full max-w-3xl flex-1 flex-col items-center justify-center px-5 pb-10 text-center sm:px-6 sm:pb-12 lg:max-w-4xl">
+        <div className="flex w-full flex-col items-center pt-[5.5rem] sm:pt-[6.25rem] lg:pt-[7.5rem]">
+          <div
+            className={cn(
+              "mb-6 flex overflow-hidden text-base font-semibold ring-1 ring-cocoyam/15 sm:mb-7 sm:text-sm",
+              radiusCta
+            )}
+            role="status"
           >
-            Book a Consultation
-          </Button>
-          <Link href="/projects">
-            <Button variant="ghost" size="lg" className="border border-white flex items-center gap-2 text-base" aria-label="View Our Work">
-              View Our Work <span className="text-2xl" aria-hidden="true">→</span>
-            </Button>
-          </Link>
-        </nav>
-      </div>
+            <span className="bg-cocoyam-light px-5 py-2.5 text-cocoyam sm:px-4 sm:py-2">
+              Open for projects
+            </span>
+            <span className="bg-white/90 px-5 py-2.5 text-cocoyam/70 backdrop-blur-sm sm:px-4 sm:py-2">
+              Lagos · Remote
+            </span>
+          </div>
 
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 text-xs text-white/40 tracking-widest" aria-hidden="true">
-        SCROLL
-        <div className="mt-2 flex justify-center">
-          <span className="block w-[1px] h-6 bg-white/30" />
+          <h1 className="font-display text-[clamp(2.125rem,6.5vw,3.5rem)] font-medium leading-[1.12] tracking-tight text-cocoyam sm:leading-[1.14]">
+            <span className="block">We Design &amp; Build</span>
+            <span className="mt-1 block italic text-cocoyam">
+              what moves your{" "}
+              <span className="underline decoration-cocoyam-light decoration-[3px] underline-offset-[0.2em]">
+                business
+              </span>{" "}
+              forward.
+            </span>
+          </h1>
+
+          <p className="mt-5 max-w-lg text-[17px] leading-relaxed text-neutral-600 sm:mt-5 sm:text-base md:max-w-xl">
+            Websites, mobile apps, and custom tools from technologists,
+            designers, and strategists who care about clarity and outcomes.
+          </p>
+
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-3.5 sm:mt-8 sm:gap-3">
+            <button
+              type="button"
+              className={cn("group", ctaPrimary, heroCtaMobile)}
+              onClick={() => openCalendly()}
+            >
+              Start a Project
+              <ArrowRight className={heroCtaIcon} aria-hidden />
+            </button>
+            <a
+              href="mailto:devteam@hokagecreativelabs.com"
+              className={cn("group", ctaOutline, heroCtaMobile)}
+            >
+              Email Us
+              <ArrowRight className={heroCtaIcon} aria-hidden />
+            </a>
+          </div>
+
+          <Link
+            href="/projects"
+            className="mt-6 text-base font-semibold text-cocoyam/80 underline decoration-cocoyam/25 underline-offset-4 transition-colors hover:text-cocoyam hover:decoration-cocoyam-light sm:text-sm"
+          >
+            View our work →
+          </Link>
         </div>
       </div>
     </header>

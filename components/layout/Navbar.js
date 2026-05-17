@@ -1,156 +1,453 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import { openCalendly } from "@/lib/utils";
+import { useEffect, useState } from "react";
+import { ArrowRight, ArrowUpRight, ChevronDown, Menu, X } from "lucide-react";
 
-const Navbar = () => {
-  const [open, setOpen] = useState(false);
-  const [expertiseOpen, setExpertiseOpen] = useState(false);
-  const [aboutOpen, setAboutOpen] = useState(false);
-  const [mobileExpertiseOpen, setMobileExpertiseOpen] = useState(false);
-  const [mobileAboutOpen, setMobileAboutOpen] = useState(false);
+import { cn, openCalendly } from "@/lib/utils";
+import {
+  ctaPrimaryLime,
+  ctaSizeMd,
+  navControlBase,
+  radiusNav,
+} from "@/lib/ui-classes";
+import { Button } from "@/components/ui/button";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+
+const navLinkClass = cn(
+  navControlBase,
+  "h-12 min-h-12 bg-transparent px-6 py-3 text-lg font-medium text-white hover:bg-white/20 hover:text-white"
+);
+
+const navTriggerClass = cn(
+  navigationMenuTriggerStyle(),
+  "h-12 min-h-12 border border-transparent bg-transparent px-6 text-lg font-semibold text-white shadow-none",
+  radiusNav,
+  "hover:border-cocoyam-light hover:bg-cocoyam-light hover:text-cocoyam",
+  "focus-visible:border-cocoyam-light focus-visible:bg-cocoyam-light focus-visible:text-cocoyam",
+  "data-[state=open]:border-white data-[state=open]:bg-white data-[state=open]:text-cocoyam data-[state=open]:hover:bg-neutral-100 data-[state=open]:hover:text-cocoyam",
+  "[&_svg]:ml-1.5 [&_svg]:size-5 [&_svg]:text-current"
+);
+
+const dropdownItemClass = cn(
+  navControlBase,
+  "flex w-full items-center gap-2.5 whitespace-nowrap px-4 py-3 text-base font-semibold text-cocoyam hover:bg-cocoyam/[0.07] focus-visible:bg-cocoyam/[0.07]"
+);
+
+const expertiseLinks = [
+  { href: "/#philosophy-heading", label: "Our Philosophy" },
+  { href: "/#ourprocess-heading", label: "Our Process" },
+];
+
+const aboutLinks = [
+  { href: "/company", label: "Company", external: false },
+  {
+    href: "https://academy.hokagecreativelabs.com",
+    label: "Academy",
+    external: true,
+  },
+  { href: "/contact", label: "Contact", external: false },
+];
+
+function DropdownLink({ item }) {
+  if (item.external) {
+    return (
+      <a
+        href={item.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={dropdownItemClass}
+      >
+        {item.label}
+        <ArrowUpRight className="size-4 shrink-0 text-cocoyam/45" aria-hidden />
+      </a>
+    );
+  }
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-2 md:px-6 py-3 bg-[#0A0118] text-white shadow-lg">
-      {/* Left: Logo */}
-      <div className="flex items-center">
-        <Image
-          src="/image.png"
-          alt="Logo"
-          width={150}
-          height={100}
-          className="object-contain"
-        />
-      </div>
+    <Link href={item.href} scroll={item.href.startsWith("/#")} className={dropdownItemClass}>
+      {item.label}
+    </Link>
+  );
+}
 
-      {/* Center: Nav Links (DESKTOP ONLY) */}
-      <div className="hidden md:flex space-x-8 items-center">
-        <Link href="/" className="font-semibold">Home</Link>
-        <Link href="/projects" className="font-semibold">Projects</Link>
-        {/* Removed Services link */}
-        {/* Expertise Dropdown */}
-        <div className="relative">
-          <Button
-            variant="ghost"
-            size="sm"
-            className="flex items-center gap-1 p-0 h-auto min-w-[110px] justify-center font-semibold text-base"
-            onClick={() => setExpertiseOpen((v) => !v)}
-            aria-expanded={expertiseOpen}
-            aria-haspopup="true"
-          >
-            Expertise <span className="text-xs">▼</span>
-          </Button>
-          {expertiseOpen && (
-            <div className="absolute left-0 mt-2 w-[110px] bg-[#21083F] rounded shadow-lg py-2 z-50">
-              <Link href="/#philosophy-heading" scroll={true} className="block px-4 py-2" onClick={() => setExpertiseOpen(false)}>Our Philosophy</Link>
-              <Link href="/#ourprocess-heading" scroll={true} className="block px-4 py-2" onClick={() => setExpertiseOpen(false)}>Our Process</Link>
-            </div>
-          )}
-        </div>
-        {/* About Dropdown */}
-        <div className="relative">
-          <Button
-            variant="ghost"
-            size="sm"
-            className="flex items-center gap-1 p-0 h-auto font-semibold text-base"
-            onClick={() => setAboutOpen((v) => !v)}
-            aria-expanded={aboutOpen}
-            aria-haspopup="true"
-          >
-            About <span className="text-xs">▼</span>
-          </Button>
-          {aboutOpen && (
-            <div className="absolute left-0 mt-2 w-48 bg-[#21083F] rounded shadow-lg py-2 z-50">
-              <Link href="/company" className="block px-4 py-2" onClick={() => setAboutOpen(false)}>Company</Link>
-              <a href="https://academy.hokagecreativelabs.com" target="_blank" rel="noopener noreferrer" className="block px-4 py-2" onClick={() => setAboutOpen(false)}>Academy</a>
-              <Link href="/contact" className="block px-4 py-2" onClick={() => setAboutOpen(false)}>Contact</Link>
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* Right: CTA (DESKTOP & TABLET) */}
-      <div className="hidden lg:block">
-        <Button
-          size="lg"
-          className="bg-white text-[#21083F] hover:bg-[#21083F] hover:text-white font-semibold"
-          onClick={() => openCalendly()}
-        >
-          Book a Consultation
-        </Button>
-      </div>
-
-      {/* Mobile/Tablet Hamburger */}
-      <Button
-        variant="ghost"
-        size="icon"
-        onClick={() => setOpen(!open)}
-        className="lg:hidden flex flex-col gap-1.5 p-2"
-        aria-label="Toggle Menu"
-      >
-        <span className="w-6 h-0.5 bg-white"></span>
-        <span className="w-6 h-0.5 bg-white"></span>
-        <span className="w-6 h-0.5 bg-white"></span>
-      </Button>
-
-      {/* Mobile/Tablet Menu */}
-      {open && (
-        <div className="absolute top-full left-0 w-full min-h-screen bg-[#21083F] flex flex-col px-6 pt-12 space-y-4 lg:hidden z-50 transition-all duration-300">
-          <Link href="/" onClick={() => setOpen(false)} className="text-2xl py-2">
-            Home
-          </Link>
-          <Link href="/projects" onClick={() => setOpen(false)} className="text-2xl py-2">
-            Projects
-          </Link>
-          {/* Expertise Dropdown Mobile */}
-          <div className="relative">
-            <button
-              className="w-full text-2xl py-2 flex items-center justify-between focus:outline-none"
-              onClick={() => setMobileExpertiseOpen((v) => !v)}
-              aria-expanded={mobileExpertiseOpen}
-              aria-haspopup="true"
-            >
-              Expertise <span className="text-base">{mobileExpertiseOpen ? '▲' : '▼'}</span>
-            </button>
-            {mobileExpertiseOpen && (
-              <div className="ml-4 flex flex-col gap-2 py-2">
-                <Link href="/#philosophy-heading" scroll={true} className="px-4 py-2 text-lg" onClick={() => { setMobileExpertiseOpen(false); setOpen(false); }}>Our Philosophy</Link>
-                <Link href="/#ourprocess-heading" scroll={true} className="px-4 py-2 text-lg" onClick={() => { setMobileExpertiseOpen(false); setOpen(false); }}>Our Process</Link>
-              </div>
-            )}
-          </div>
-          {/* About Dropdown Mobile */}
-          <div className="relative">
-            <button
-              className="w-full text-2xl py-2 flex items-center justify-between focus:outline-none"
-              onClick={() => setMobileAboutOpen((v) => !v)}
-              aria-expanded={mobileAboutOpen}
-              aria-haspopup="true"
-            >
-              About <span className="text-base">{mobileAboutOpen ? '▲' : '▼'}</span>
-            </button>
-            {mobileAboutOpen && (
-              <div className="ml-4 flex flex-col gap-2 py-2">
-                <Link href="/company" className="px-4 py-2 text-lg" onClick={() => { setMobileAboutOpen(false); setOpen(false); }}>Company</Link>
-                <a href="https://academy.hokagecreativelabs.com" target="_blank" rel="noopener noreferrer" className="px-4 py-2 text-lg" onClick={() => { setMobileAboutOpen(false); setOpen(false); }}>Academy</a>
-                <Link href="/contact" className="px-4 py-2 text-lg" onClick={() => { setMobileAboutOpen(false); setOpen(false); }}>Contact</Link>
-              </div>
-            )}
-          </div>
-          <Button
-            size="lg"
-            className="mt-6 w-full bg-[#7FF41A] text-[#21083F] rounded text-lg font-semibold"
-            onClick={() => { setOpen(false); openCalendly(); }}
-          >
-            Book a Consultation
-          </Button>
-        </div>
-      )}
+function DesktopNavFallback() {
+  return (
+    <nav
+      className="flex flex-wrap items-center justify-center gap-2 sm:gap-3"
+      aria-label="Main navigation"
+    >
+      <Link href="/" className={cn(navLinkClass)}>
+        Home
+      </Link>
+      <Link href="/projects" className={cn(navLinkClass)}>
+        Projects
+      </Link>
+      <Link href="/#philosophy-heading" scroll className={cn(navLinkClass)}>
+        Expertise
+      </Link>
+      <Link href="/company" className={cn(navLinkClass)}>
+        About
+      </Link>
     </nav>
   );
-};
+}
 
-export default Navbar;
+function ConsultationCta({ className }) {
+  return (
+    <button
+      type="button"
+      className={cn("group", ctaPrimaryLime, ctaSizeMd, className)}
+      onClick={() => openCalendly()}
+    >
+      Book a Consultation
+      <ArrowRight
+        className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
+        aria-hidden
+      />
+    </button>
+  );
+}
+
+const mobileNavPrimaryClass =
+  "py-3 font-display text-[clamp(1.75rem,7vw,2.5rem)] font-medium leading-[1.05] text-white hover:text-cocoyam-light";
+
+const mobileNavSecondaryClass =
+  "py-2 font-display text-[clamp(1.2rem,4.5vw,1.5rem)] font-medium leading-snug text-white/90 hover:text-cocoyam-light";
+
+function MobileNavRow({
+  href,
+  label,
+  external = false,
+  scroll = false,
+  size = "primary",
+}) {
+  const className = cn(
+    navControlBase,
+    "group flex w-full items-center justify-between gap-4 text-left transition-colors",
+    size === "primary" ? mobileNavPrimaryClass : mobileNavSecondaryClass
+  );
+
+  const content = (
+    <>
+      <span>{label}</span>
+      {external ? (
+        <ArrowUpRight className="size-4 shrink-0 text-white/40" aria-hidden />
+      ) : (
+        <ArrowRight
+          className="size-4 shrink-0 text-cocoyam-light opacity-0 transition-all group-hover:translate-x-0.5 group-hover:opacity-100"
+          aria-hidden
+        />
+      )}
+    </>
+  );
+
+  return (
+    <SheetClose asChild>
+      {external ? (
+        <a
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={className}
+        >
+          {content}
+        </a>
+      ) : (
+        <Link href={href} scroll={scroll} className={className}>
+          {content}
+        </Link>
+      )}
+    </SheetClose>
+  );
+}
+
+function MobileNavGroup({ title, links, defaultOpen = false }) {
+  const [open, setOpen] = useState(defaultOpen);
+
+  return (
+    <Collapsible
+      open={open}
+      onOpenChange={setOpen}
+      className="border-b border-white/10"
+    >
+      <CollapsibleTrigger
+        className={cn(
+          navControlBase,
+          "flex w-full items-center justify-between gap-4 text-left",
+          mobileNavPrimaryClass
+        )}
+      >
+        {title}
+        <ChevronDown
+          className={cn(
+            "size-5 shrink-0 text-white/50 transition-transform duration-200",
+            open && "rotate-180"
+          )}
+          aria-hidden
+        />
+      </CollapsibleTrigger>
+      <CollapsibleContent className="grid overflow-hidden transition-[grid-template-rows] duration-300 ease-out data-[state=closed]:grid-rows-[0fr] data-[state=open]:grid-rows-[1fr]">
+        <ul className="min-h-0 space-y-0 border-l-2 border-cocoyam-light/40 pl-3 pb-2 pt-0.5">
+          {links.map((item) => (
+            <li key={item.href} className="list-none">
+              <MobileNavRow
+                href={item.href}
+                label={item.label}
+                external={item.external}
+                scroll={item.href.startsWith("/#")}
+                size="secondary"
+              />
+            </li>
+          ))}
+        </ul>
+      </CollapsibleContent>
+    </Collapsible>
+  );
+}
+
+function MobileNavMenu() {
+  return (
+  <div className="flex min-h-0 flex-1 flex-col">
+    <div className="flex shrink-0 items-center justify-between border-b border-white/10 px-4 py-3 sm:px-5">
+      <SheetClose asChild>
+        <Link
+          href="/"
+          className="rounded-md outline-none ring-offset-2 ring-offset-cocoyam focus-visible:ring-2 focus-visible:ring-cocoyam-light/60"
+          aria-label="Hokage Creative Labs home"
+        >
+          <Image
+            src="/image.png"
+            alt=""
+            width={120}
+            height={48}
+            className="h-9 w-auto object-contain"
+          />
+        </Link>
+      </SheetClose>
+      <SheetClose asChild>
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon"
+          className={cn(
+            "size-11 text-white hover:bg-white/10 [&_svg]:size-6",
+            radiusNav
+          )}
+          aria-label="Close menu"
+        >
+          <X />
+        </Button>
+      </SheetClose>
+    </div>
+
+    <div className="flex-1 overflow-y-auto overscroll-contain px-4 py-4 sm:px-5 sm:py-5">
+      <nav aria-label="Mobile navigation">
+        <ul className="space-y-0">
+          <li className="list-none border-b border-white/10">
+            <MobileNavRow href="/" label="Home" />
+          </li>
+          <li className="list-none border-b border-white/10">
+            <MobileNavRow href="/projects" label="Projects" />
+          </li>
+        </ul>
+
+        <MobileNavGroup title="Expertise" links={expertiseLinks} />
+        <MobileNavGroup title="About" links={aboutLinks} />
+      </nav>
+    </div>
+
+    <div className="shrink-0 border-t border-white/10 bg-cocoyam px-4 py-4 pb-[max(1rem,env(safe-area-inset-bottom))] sm:px-5 md:hidden">
+      <SheetClose asChild>
+        <ConsultationCta className="w-full justify-center" />
+      </SheetClose>
+      <SheetClose asChild>
+        <a
+          href="mailto:devteam@hokagecreativelabs.com"
+          className="mt-3 block text-center text-sm font-medium text-white/45 underline decoration-white/20 underline-offset-4 transition-colors hover:text-white/70"
+        >
+          devteam@hokagecreativelabs.com
+        </a>
+      </SheetClose>
+    </div>
+  </div>
+  );
+}
+
+export default function Navbar() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  return (
+    <header className="pointer-events-none fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-4 sm:pt-4 lg:px-6 lg:pt-6 xl:px-8">
+      <div
+        className={cn(
+          "pointer-events-auto grid w-full grid-cols-[1fr_auto] items-center gap-3 rounded-2xl border border-white/10 bg-cocoyam px-4 py-4 shadow-2xl shadow-black/40 sm:gap-4 sm:px-5 sm:py-5 lg:grid-cols-[auto_1fr_auto] lg:gap-6 lg:px-6 lg:py-5 xl:px-8 xl:py-6"
+        )}
+      >
+        <Link
+          href="/"
+          className="flex shrink-0 items-center justify-self-start rounded-md outline-none ring-offset-2 ring-offset-cocoyam focus-visible:ring-2 focus-visible:ring-cocoyam-light/60"
+          aria-label="Hokage Creative Labs home"
+        >
+          <Image
+            src="/image.png"
+            alt="Hokage Creative Labs"
+            width={160}
+            height={64}
+            className="h-12 w-auto object-contain sm:h-[3.25rem] lg:h-14"
+            priority
+          />
+        </Link>
+
+        <div className="hidden min-w-0 items-center justify-center justify-self-stretch overflow-visible lg:flex">
+          {!mounted ? (
+            <DesktopNavFallback />
+          ) : (
+            <NavigationMenu
+              viewport={false}
+              className="relative z-10 flex w-max max-w-none flex-none justify-center"
+            >
+              <NavigationMenuList className="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
+                <NavigationMenuItem>
+                  <NavigationMenuLink asChild>
+                    <Link href="/" className={cn(navLinkClass)}>
+                      Home
+                    </Link>
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+
+                <NavigationMenuItem>
+                  <NavigationMenuLink asChild>
+                    <Link href="/projects" className={cn(navLinkClass)}>
+                      Projects
+                    </Link>
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+
+                <NavigationMenuItem className="relative">
+                  <NavigationMenuTrigger className={navTriggerClass}>
+                    Expertise
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent
+                    className={cn(
+                      "border border-neutral-200 bg-white text-cocoyam shadow-2xl",
+                      radiusNav
+                    )}
+                  >
+                    <ul className="flex min-w-[12.5rem] flex-col gap-0.5 p-2">
+                      {expertiseLinks.map((item) => (
+                        <li key={item.href}>
+                          <NavigationMenuLink asChild>
+                            <DropdownLink item={item} />
+                          </NavigationMenuLink>
+                        </li>
+                      ))}
+                    </ul>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+
+                <NavigationMenuItem className="relative">
+                  <NavigationMenuTrigger className={navTriggerClass}>
+                    About
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent
+                    className={cn(
+                      "border border-neutral-200 bg-white text-cocoyam shadow-2xl",
+                      radiusNav
+                    )}
+                  >
+                    <ul className="flex min-w-[12.5rem] flex-col gap-0.5 p-2">
+                      {aboutLinks.map((item) => (
+                        <li key={item.href}>
+                          <NavigationMenuLink asChild>
+                            <DropdownLink item={item} />
+                          </NavigationMenuLink>
+                        </li>
+                      ))}
+                    </ul>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
+          )}
+        </div>
+
+        <div className="col-start-2 flex items-center justify-end gap-2 justify-self-end lg:col-start-3">
+          {/* Tablet + desktop: CTA in bar. Mobile: only inside open menu */}
+          <ConsultationCta className="hidden shrink-0 whitespace-nowrap md:inline-flex" />
+
+          {!mounted ? (
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon"
+              className={cn(
+                "size-12 text-white hover:bg-white/10 lg:hidden [&_svg]:size-7",
+                radiusNav
+              )}
+              aria-label="Open menu"
+              disabled
+            >
+              <Menu />
+            </Button>
+          ) : (
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon"
+                  className={cn(
+                    "size-12 text-white hover:bg-white/10 lg:hidden [&_svg]:size-7",
+                    radiusNav
+                  )}
+                  aria-label="Open menu"
+                >
+                  <Menu />
+                </Button>
+              </SheetTrigger>
+              <SheetContent
+                hideCloseButton
+                side="right"
+                className={cn(
+                  "flex !inset-0 !left-0 !top-0 !h-[100dvh] !max-h-none !w-full !max-w-none !translate-x-0 flex-col gap-0 !border-0 !p-0",
+                  "border-0 bg-cocoyam text-white shadow-none",
+                  "data-[state=closed]:duration-300 data-[state=open]:duration-300",
+                  "data-[state=closed]:slide-out-to-right-0 data-[state=open]:slide-in-from-right-0"
+                )}
+              >
+                <SheetTitle className="sr-only">Navigation menu</SheetTitle>
+                <MobileNavMenu />
+              </SheetContent>
+            </Sheet>
+          )}
+        </div>
+      </div>
+    </header>
+  );
+}

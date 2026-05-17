@@ -1,74 +1,175 @@
-import React from 'react';
-import { FaCode, FaPaintBrush, FaMobileAlt, FaRocket, FaCloud, FaLock, FaShoppingCart, FaChartBar, FaSearch, FaComments, FaGraduationCap } from "react-icons/fa";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+"use client";
 
-const expertiseList = [
-  {
-    icon: <FaPaintBrush size={32} className="text-cocoyam-light" aria-hidden="true" />,
-    title: "Branding",
-    desc: "We craft visual identities that resonate. From logos to comprehensive brand guidelines, we build systems that tell your story across every touchpoint with consistency and impact."
-  },
-  {
-    icon: <FaPaintBrush size={32} className="text-cocoyam-light" aria-hidden="true" />,
-    title: "UI/UX Design",
-    desc: "Beautiful interfaces meet intuitive experiences. We design digital products that users love to interact with—combining aesthetic excellence with seamless usability."
-  },
-  {
-    icon: <FaCode size={32} className="text-cocoyam-light" aria-hidden="true" />,
-    title: "Software Development",
-    desc: "Robust, scalable solutions built with precision. We transform complex requirements into clean, maintainable code using modern frameworks and best practices."
-  },
-  {
-    icon: <FaShoppingCart size={32} className="text-cocoyam-light" aria-hidden="true" />,
-    title: "eCommerce Applications",
-    desc: "High-converting online stores that drive revenue. From shopping cart optimization to payment integration, we build eCommerce platforms that sell."
-  },
-  {
-    icon: <FaChartBar size={32} className="text-cocoyam-light" aria-hidden="true" />,
-    title: "Custom Dashboards",
-    desc: "Data visualization that empowers decisions. We create intuitive dashboards that transform complex data into actionable insights at a glance."
-  },
-  {
-    icon: <FaSearch size={32} className="text-cocoyam-light" aria-hidden="true" />,
-    title: "SEO Optimization",
-    desc: "We optimize your digital presence for search engines, ensuring your brand is discoverable and ranks high where it matters most."
-  },
-  {
-    icon: <FaComments size={32} className="text-cocoyam-light" aria-hidden="true" />,
-    title: "Content & Messaging",
-    desc: "Compelling copy and content strategies that engage, inform, and convert your audience across all platforms."
-  },
-  {
-    icon: <FaGraduationCap size={32} className="text-cocoyam-light" aria-hidden="true" />,
-    title: "Training & Workshops",
-    desc: "Empowering your team with the knowledge and skills to maintain, scale, and innovate your digital products."
-  }
-];
+import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
+import { ArrowRight } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { services } from "@/data";
+import { ctaPrimary, ctaSizeMd } from "@/lib/ui-classes";
+
+const featuredServices = services.filter((s) => s.featured);
+
+function useReveal(threshold = 0.15) {
+  const ref = useRef(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return undefined;
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setVisible(true);
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold, rootMargin: "0px 0px -6% 0px" }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [threshold]);
+
+  return { ref, visible };
+}
+
+function ServiceCard({ item, index, accented = false }) {
+  const { ref, visible } = useReveal(0.12);
+
+  return (
+    <li ref={ref} className="list-none">
+      <article
+        className={[
+          "flex h-full flex-col rounded-2xl border p-6 transition-[opacity,transform,box-shadow,border-color] duration-700 ease-out sm:p-8",
+          accented
+            ? "border-cocoyam bg-cocoyam text-white hover:border-cocoyam hover:shadow-[0_24px_60px_-20px_rgba(33,8,63,0.45)]"
+            : "border-cocoyam/10 bg-white hover:border-cocoyam/18 hover:shadow-[0_20px_50px_-30px_rgba(33,8,63,0.2)]",
+          visible ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0",
+        ].join(" ")}
+        style={{ transitionDelay: visible ? `${80 + index * 70}ms` : "0ms" }}
+        itemScope
+        itemType="https://schema.org/Service"
+      >
+        <div
+          className={[
+            "mb-6 flex items-end justify-between gap-4 border-b pb-5",
+            accented ? "border-white/15" : "border-cocoyam/[0.08]",
+          ].join(" ")}
+        >
+          <p
+            className={[
+              "max-w-[60%] text-xs font-semibold uppercase tracking-[0.18em] sm:text-sm sm:tracking-[0.2em]",
+              accented ? "text-white/55" : "text-cocoyam/55",
+            ].join(" ")}
+          >
+            {item.label}
+          </p>
+          <span
+            className={[
+              "pointer-events-none shrink-0 font-display text-[3.25rem] font-medium leading-[0.85] sm:text-[3.5rem]",
+              accented ? "text-cocoyam-light/55" : "text-cocoyam/20",
+            ].join(" ")}
+            aria-hidden
+          >
+            {item.number}
+          </span>
+        </div>
+
+        <span
+          className="mb-4 block h-0.5 w-10 shrink-0 rounded-full bg-cocoyam-light"
+          aria-hidden
+        />
+
+        <h3
+          className={[
+            "font-display text-[1.35rem] font-medium leading-snug sm:text-[1.5rem]",
+            accented ? "text-white" : "text-cocoyam",
+          ].join(" ")}
+          itemProp="name"
+        >
+          {item.title}
+        </h3>
+        <p
+          className={[
+            "mt-4 flex-1 text-[15px] leading-relaxed sm:text-base",
+            accented ? "text-white/70" : "text-cocoyam/65",
+          ].join(" ")}
+          itemProp="description"
+        >
+          {item.desc}
+        </p>
+      </article>
+    </li>
+  );
+}
 
 const ExpertiseSection = () => {
+  const { ref: headerRef, visible: headerVisible } = useReveal(0.2);
+
   return (
-    <section className="bg-white text-[#21083F] py-24 px-6" aria-labelledby="expertise-heading">
-      <div className="max-w-6xl mx-auto">
-        <header>
-          <h2 id="expertise-heading" className="text-4xl md:text-5xl font-bold text-center mb-12 font-sans">
+    <section
+      id="expertise-heading"
+      className="bg-white text-cocoyam"
+      aria-labelledby="expertise-title"
+    >
+      <div className="mx-auto max-w-7xl px-5 py-20 sm:px-6 sm:py-28 lg:py-32">
+        <header
+          ref={headerRef}
+          className={[
+            "mx-auto max-w-2xl text-center transition-all duration-700 ease-out",
+            headerVisible ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0",
+          ].join(" ")}
+        >
+          <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-cocoyam/45">
             Expertise
+          </p>
+          <h2
+            id="expertise-title"
+            className="mt-5 font-display text-[clamp(2rem,4vw,3rem)] font-medium leading-[1.1] tracking-tight"
+          >
+            Built to ship across the{" "}
+            <span className="italic text-cocoyam underline decoration-cocoyam-light decoration-[3px] underline-offset-[0.2em]">
+              full stack.
+            </span>
           </h2>
+          <p className="mt-5 text-base leading-relaxed text-cocoyam/60 sm:text-lg">
+            Brand identity design, product, and engineering for teams who need clarity from day
+            one—not a laundry list of buzzwords.
+          </p>
         </header>
-        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10" aria-label="Expertise List">
-          {expertiseList.map((item, idx) => (
-            <li key={idx} className="list-none">
-              <Card className="flex flex-col items-center text-center bg-white border border-[#21083F]/10 p-8 shadow-lg h-full font-sans" itemScope itemType="https://schema.org/Service">
-                <CardHeader className="flex flex-col items-center">
-                  <div className="mb-4">{item.icon}</div>
-                  <CardTitle className="text-xl font-semibold mb-2 text-[#21083F]" itemProp="name">{item.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-[#21083F]/80 text-base" itemProp="description">{item.desc}</p>
-                </CardContent>
-              </Card>
-            </li>
+
+        <ul
+          className="mt-14 grid gap-6 sm:mt-16 sm:grid-cols-2 sm:gap-8"
+          aria-label="Core services"
+        >
+          {featuredServices.map((item, index) => (
+            <ServiceCard
+              key={item.key}
+              item={item}
+              index={index}
+              accented={index === 0}
+            />
           ))}
         </ul>
+
+        <div className="mt-12 flex justify-center sm:mt-14">
+          <Link
+            href="/services"
+            className={cn("group", ctaPrimary, ctaSizeMd)}
+          >
+            View all services
+            <ArrowRight
+              className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
+              aria-hidden
+            />
+          </Link>
+        </div>
       </div>
     </section>
   );

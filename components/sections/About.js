@@ -25,7 +25,7 @@ const About = () => {
           </div>
           <div>
             <h3 className="text-2xl font-semibold mb-2">What We Do</h3>
-            <p className="text-lg text-[#21083F]/80">From branding to full-stack development, we partner with clients to create digital experiences that stand out. Our expertise spans web, mobile, and emerging technologies.</p>
+            <p className="text-lg text-[#21083F]/80">From brand identity design to full-stack development, we partner with clients to create digital experiences that stand out. Our expertise spans web, mobile, and emerging technologies.</p>
           </div>
         </div>
       </div>

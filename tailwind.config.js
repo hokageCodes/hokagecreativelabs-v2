@@ -56,11 +56,13 @@ module.exports = {
   		},
   		fontFamily: {
   			sans: [
-  				'Inter',
+  				'var(--font-dm-sans)',
+  				'system-ui',
   				'sans-serif'
   			],
-  			serif: [
-  				'Merriweather',
+  			display: [
+  				'var(--font-playfair)',
+  				'Georgia',
   				'serif'
   			]
   		},
@@ -76,6 +78,15 @@ module.exports = {
   		},
   		boxShadow: {
   			glow: '0 0 10px rgba(127, 244, 26, 0.5)'
+  		},
+  		keyframes: {
+  			marquee: {
+  				'0%': { transform: 'translateX(0)' },
+  				'100%': { transform: 'translateX(-50%)' }
+  			}
+  		},
+  		animation: {
+  			marquee: 'marquee 28s linear infinite'
   		}
   	}
   },

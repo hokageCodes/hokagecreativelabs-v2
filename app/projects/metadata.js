@@ -1,11 +1,11 @@
 export const metadata = {
   title: "Projects | Hokage Creative Labs",
-  description: "Explore our portfolio of branding, web, UI/UX, and digital products for ambitious brands.",
+  description: "Explore our portfolio of brand identity design, web, UI/UX, and digital products for ambitious partners.",
   keywords: [
     "Hokage Creative Labs",
     "projects",
     "portfolio",
-    "branding",
+    "brand identity design",
     "web development",
     "UI/UX",
     "digital products",
@@ -15,7 +15,7 @@ export const metadata = {
   ],
   openGraph: {
     title: "Projects | Hokage Creative Labs",
-    description: "See our work in branding, web, UI/UX, and digital products for ambitious brands.",
+    description: "See our work in brand identity design, web, UI/UX, and digital products for ambitious partners.",
     url: "https://hokagecreativelabs.com/projects",
     siteName: "Hokage Creative Labs",
     images: [
@@ -32,7 +32,7 @@ export const metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Projects | Hokage Creative Labs",
-    description: "See our work in branding, web, UI/UX, and digital products for ambitious brands.",
+    description: "See our work in brand identity design, web, UI/UX, and digital products for ambitious partners.",
     site: "@hokagecreativelabs",
     images: [
       "/Logo-Blue.jpg"

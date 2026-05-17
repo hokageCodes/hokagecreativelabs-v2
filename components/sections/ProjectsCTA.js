@@ -1,20 +1,44 @@
-import { Button } from "@/components/ui/button";
-import { openCalendly } from "@/lib/utils";
+"use client";
 
-const ProjectsCTA = () => (
-  <section className="bg-white text-[#21083F] py-20 px-6 text-center">
-    <div className="max-w-2xl mx-auto">
-      <h2 className="text-3xl md:text-4xl font-bold mb-4 font-sans">Ready to start your own project?</h2>
-      <p className="mb-8 text-lg text-[#21083F]/80">Let’s bring your vision to life. Book a free consultation and let’s make something amazing together.</p>
-      <Button
-        size="lg"
-        className="font-semibold bg-cocoyam-light text-[#21083F] hover:bg-[#aaff4a] transition-all px-8 py-4 rounded-full"
-        onClick={openCalendly}
-      >
-        Book a Consultation
-      </Button>
-    </div>
-  </section>
-);
+import { ArrowRight } from "lucide-react";
+import { cn, openCalendly } from "@/lib/utils";
+import { ctaPrimary, ctaSizeMd } from "@/lib/ui-classes";
 
-export default ProjectsCTA;
+export default function ProjectsCTA() {
+  return (
+    <section
+      className="border-t border-cocoyam/10 bg-white text-cocoyam"
+      aria-labelledby="projects-cta-title"
+    >
+      <div className="mx-auto max-w-3xl px-5 py-20 text-center sm:px-6 sm:py-24">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-cocoyam/45">
+          Next step
+        </p>
+        <h2
+          id="projects-cta-title"
+          className="mt-5 font-display text-[clamp(1.75rem,3.5vw,2.75rem)] font-medium leading-snug tracking-tight"
+        >
+          Ready to start your own{" "}
+          <span className="italic underline decoration-cocoyam-light decoration-[3px] underline-offset-[0.14em]">
+            project?
+          </span>
+        </h2>
+        <p className="mt-5 text-base leading-relaxed text-cocoyam/60 sm:text-lg">
+          Book a free consultation. We&apos;ll talk goals, scope, and timeline—then
+          share a clear recommendation on how we can help.
+        </p>
+        <button
+          type="button"
+          className={cn("group mt-8", ctaPrimary, ctaSizeMd)}
+          onClick={() => openCalendly()}
+        >
+          Book a free consultation
+          <ArrowRight
+            className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
+            aria-hidden
+          />
+        </button>
+      </div>
+    </section>
+  );
+}

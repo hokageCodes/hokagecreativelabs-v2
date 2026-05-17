@@ -10,7 +10,7 @@ export const metadata = {
     "vision",
     "values",
     "digital agency",
-    "branding",
+    "brand identity design",
     "web development"
   ],
   openGraph: {
